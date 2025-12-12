@@ -19,7 +19,6 @@ import org.e2fs4.strategy.presentation.navigation.AppScreen
 fun MainScreen() {
     MaterialTheme {
         var currentScreen by rememberSaveable { mutableStateOf(AppScreen.Selection) }
-
         Scaffold { innerPadding ->
             Box(
                 modifier = Modifier
