@@ -1,11 +1,13 @@
 package org.e2fs4.strategy.presentation.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RadioButtonRow(
-    buttonText: String,
+    content: @Composable () -> Unit,
     isSelected: Boolean,
     onSelect: () -> Unit
 ) {
@@ -36,10 +38,10 @@ fun RadioButtonRow(
             selected = isSelected,
             onClick = null
         )
-        Text(
-            text = buttonText,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(start = 16.dp)
-        )
+        Box(modifier = Modifier.padding(start = 16.dp)) {
+            ProvideTextStyle(value = MaterialTheme.typography.bodyLarge) {
+                content()
+            }
+        }
     }
 }

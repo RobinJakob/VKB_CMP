@@ -35,7 +35,31 @@ fun MainScreen() {
                             )
                         }
                         AppScreen.VKB -> {
-                            VKBScreen()
+                            VKBScreen(
+                                onNavigateNext = {
+                                    currentScreen = AppScreen.Summary
+                                },
+                                onNavigateBack = {
+                                    currentScreen = AppScreen.Selection
+                                }
+                            )
+                        }
+                        AppScreen.Summary -> {
+                            SummaryScreen(
+                                onNavigateNext = {
+                                    currentScreen = AppScreen.Confirmation
+                                },
+                                onNavigateBack = {
+                                    currentScreen = AppScreen.VKB
+                                }
+                            )
+                        }
+                        AppScreen.Confirmation -> {
+                            ConfirmationScreen(
+                                onNavigateNext = {
+                                    currentScreen = AppScreen.Selection
+                                }
+                            )
                         }
                     }
                 }

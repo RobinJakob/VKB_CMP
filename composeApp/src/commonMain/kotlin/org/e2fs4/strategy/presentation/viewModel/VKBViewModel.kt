@@ -3,12 +3,18 @@ package org.e2fs4.strategy.presentation.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import org.e2fs4.strategy.domain.formatting.toCurrencyString
 import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.domain.strategies.ExpressShippingStrategy
 import org.e2fs4.strategy.domain.strategies.FreeShippingThresholdStrategy
 import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
+import kotlin.text.append
 
 object VKBViewModel {
     var selectedProduct: Product? by mutableStateOf(null)
@@ -34,21 +40,16 @@ object VKBViewModel {
     }
 
 
-    fun getShippingCostString(strategy: ShippingStrategy, product: Product): String {
-        val shippingCostString = if (strategy.strikePrice() == 0.0) {
-            "${strategy.getName()}: " +
-                    strategy.calculateCost(
-                        product.price, product.weightInKg
-                    )
-                        .toCurrencyString()
-        } else {
-            val strikePriceString = (strategy.strikePrice().toCurrencyString())
-                .map { "$it\u0336" }.joinToString ("")
-
-            "${strategy.getName()}: " +
-                    strikePriceString +
-                    " ${strategy.calculateCost(product.price, product.weightInKg).toCurrencyString()}"
+    fun getShippingCostString(strategy: ShippingStrategy, product: Product): AnnotatedString {
+        return buildAnnotatedString {
+            append("${strategy.getName()}: ")
+            if (strategy.strikePrice() > 0.0) {
+                withStyle(style = SpanStyle(textDecoration = TextDecoration.LineThrough)) {
+                    append(strategy.strikePrice().toCurrencyString())
+                }
+                append(" ")
+            }
+            append(strategy.calculateCost(product.price, product.weightInKg).toCurrencyString())
         }
-        return shippingCostString
     }
 }

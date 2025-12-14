@@ -23,18 +23,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.e2fs4.strategy.domain.formatting.toCurrencyString
+import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.presentation.components.RadioButtonRow
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
-fun SelectionScreen(
+fun ConfirmationScreen(
     onNavigateNext: () -> Unit
 ) {
-    val products = remember { VKBViewModel.products }
-    var currentSelection by remember { mutableStateOf(products.first()) }
+    var selectedProduct = VKBViewModel.selectedProduct
+        ?: Product("Unbekannt", 0.0, 0.0)
+    val shippingStrategies = VKBViewModel.getAvailableShippingStrategies(selectedProduct)
+    var currentSelection by remember { mutableStateOf(shippingStrategies.first()) }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -50,24 +50,18 @@ fun SelectionScreen(
         ) {
             item {
                 Text(
-                    text = "Artikelauswahl",
+                    text = "Vielen Dank!",
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
             }
 
-            items(products) { product ->
-                RadioButtonRow(
-                    content = {
-                        Text("${product.productName} " +
-                                "(${product.weightInKg
-                                    .toString()
-                                    .replace(".", ",")}kg): " +
-                                product.price.toCurrencyString())
-                    },
-                    isSelected = (product == currentSelection),
-                    onSelect = { currentSelection = product }
+            item {
+                Text(
+                    text = "Ihre Bestellung wurde erfolgreich aufgegeben.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 24.dp)
                 )
             }
 
@@ -75,12 +69,12 @@ fun SelectionScreen(
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
                     onClick = {
-                        VKBViewModel.selectedProduct = currentSelection
+                        VKBViewModel.selectedProduct = selectedProduct
                         onNavigateNext()
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Auswahl bestätigen")
+                    Text("Abschließen")
                 }
             }
         }

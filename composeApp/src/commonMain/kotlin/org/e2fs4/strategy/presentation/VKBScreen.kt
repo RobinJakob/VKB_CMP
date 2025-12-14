@@ -24,14 +24,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.e2fs4.strategy.domain.models.Product
-import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.presentation.components.RadioButtonRow
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun VKBScreen() {
+fun VKBScreen(
+    onNavigateNext: () -> Unit,
+    onNavigateBack: () -> Unit
+) {
     var selectedProduct = VKBViewModel.selectedProduct
         ?: Product("Unbekannt", 0.0, 0.0)
     val shippingStrategies = VKBViewModel.getAvailableShippingStrategies(selectedProduct)
@@ -60,7 +62,9 @@ fun VKBScreen() {
 
             items(shippingStrategies) { strategy ->
                 RadioButtonRow(
-                    buttonText = VKBViewModel.getShippingCostString(strategy, selectedProduct),
+                    content = {
+                        Text(text = VKBViewModel.getShippingCostString(strategy, selectedProduct))
+                    },
                     isSelected = (strategy == currentSelection),
                     onSelect = { currentSelection = strategy }
                 )
@@ -71,6 +75,7 @@ fun VKBScreen() {
                 Button(
                     onClick = {
                         VKBViewModel.selectedProduct = selectedProduct
+                        onNavigateNext()
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -82,6 +87,7 @@ fun VKBScreen() {
                 Button(
                     onClick = {
                         VKBViewModel.selectedProduct = selectedProduct
+                        onNavigateBack()
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
