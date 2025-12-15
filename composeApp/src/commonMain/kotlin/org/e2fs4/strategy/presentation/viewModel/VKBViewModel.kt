@@ -18,6 +18,7 @@ import kotlin.text.append
 
 object VKBViewModel {
     var selectedProduct: Product? by mutableStateOf(null)
+    var selectedShippingStrategy: ShippingStrategy? by mutableStateOf(null)
     val products = listOf(
         Product(productName = "Smartphone", price = 699.0, weightInKg = 0.5),
         Product(productName = "Standmixer", price = 79.0, weightInKg = 4.5),

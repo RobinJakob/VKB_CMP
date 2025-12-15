@@ -34,7 +34,10 @@ fun SelectionScreen(
     onNavigateNext: () -> Unit
 ) {
     val products = remember { VKBViewModel.products }
-    var currentSelection by remember { mutableStateOf(products.first()) }
+    var currentSelection by remember {
+        mutableStateOf(VKBViewModel.selectedProduct
+            ?: products.first())
+    }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

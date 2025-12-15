@@ -31,10 +31,6 @@ import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 fun ConfirmationScreen(
     onNavigateNext: () -> Unit
 ) {
-    var selectedProduct = VKBViewModel.selectedProduct
-        ?: Product("Unbekannt", 0.0, 0.0)
-    val shippingStrategies = VKBViewModel.getAvailableShippingStrategies(selectedProduct)
-    var currentSelection by remember { mutableStateOf(shippingStrategies.first()) }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -60,8 +56,7 @@ fun ConfirmationScreen(
             item {
                 Text(
                     text = "Ihre Bestellung wurde erfolgreich aufgegeben.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 24.dp)
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
 
@@ -69,7 +64,8 @@ fun ConfirmationScreen(
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
                     onClick = {
-                        VKBViewModel.selectedProduct = selectedProduct
+                        VKBViewModel.selectedProduct = null
+                        VKBViewModel.selectedShippingStrategy = null
                         onNavigateNext()
                     },
                     modifier = Modifier.fillMaxWidth()
