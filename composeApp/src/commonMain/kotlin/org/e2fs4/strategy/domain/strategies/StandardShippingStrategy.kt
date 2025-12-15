@@ -1,7 +1,5 @@
 package org.e2fs4.strategy.domain.strategies
 
-import org.e2fs4.strategy.domain.formatting.toCurrencyString
-
 open class StandardShippingStrategy(
     protected val flatRate: Double = 5.00
 ): ShippingStrategy {

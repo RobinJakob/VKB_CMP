@@ -22,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.presentation.components.RadioButtonRow
@@ -38,7 +37,13 @@ fun VKBScreen(
     val selectedProduct = VKBViewModel.selectedProduct
         ?: Product("Unbekannt", 0.0, 0.0)
     val shippingStrategies = VKBViewModel.getAvailableShippingStrategies(selectedProduct)
-    var currentSelection by remember { mutableStateOf(shippingStrategies.first()) }
+    var currentSelection by remember {
+        mutableStateOf(
+            shippingStrategies.find {
+                it.getName() == VKBViewModel.selectedShippingStrategy?.getName()
+            } ?: shippingStrategies.first()
+        )
+    }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

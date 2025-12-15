@@ -14,7 +14,6 @@ import org.e2fs4.strategy.domain.strategies.ExpressShippingStrategy
 import org.e2fs4.strategy.domain.strategies.FreeShippingThresholdStrategy
 import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
-import kotlin.text.append
 
 object VKBViewModel {
     var selectedProduct: Product? by mutableStateOf(null)
