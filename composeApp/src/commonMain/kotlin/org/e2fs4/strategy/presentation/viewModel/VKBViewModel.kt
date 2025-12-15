@@ -27,13 +27,13 @@ object VKBViewModel {
     fun getAvailableShippingStrategies(product: Product): List<ShippingStrategy> {
         val availableShippingStrategies = mutableListOf<ShippingStrategy>()
 
-        if (product.price >= 10.0) {
-            availableShippingStrategies.add(ExpressShippingStrategy())
-        }
         if (product.price >= 100.0) {
             availableShippingStrategies.add(FreeShippingThresholdStrategy())
         } else {
             availableShippingStrategies.add(StandardShippingStrategy())
+        }
+        if (product.price >= 10.0) {
+            availableShippingStrategies.add(ExpressShippingStrategy())
         }
 
         return availableShippingStrategies
