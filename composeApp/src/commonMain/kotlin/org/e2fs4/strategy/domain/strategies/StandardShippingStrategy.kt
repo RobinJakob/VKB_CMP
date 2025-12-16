@@ -1,7 +1,7 @@
 package org.e2fs4.strategy.domain.strategies
 
 open class StandardShippingStrategy(
-    protected val flatRate: Double = 5.00
+    protected val flatRate: Double = 5.0
 ): ShippingStrategy {
     override fun isAvailable(orderValue: Double): Boolean {
         if (orderValue < 100.0) {
@@ -26,8 +26,7 @@ open class StandardShippingStrategy(
     }
 }
 
-class FreeShippingThresholdStrategy(
-): StandardShippingStrategy() {
+class FreeShippingStrategy(): StandardShippingStrategy() {
     override fun isAvailable(orderValue: Double): Boolean {
         if (orderValue >= 100.0) {
             return true

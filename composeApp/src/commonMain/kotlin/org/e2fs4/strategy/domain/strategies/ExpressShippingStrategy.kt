@@ -1,11 +1,11 @@
 package org.e2fs4.strategy.domain.strategies
 
 class ExpressShippingStrategy(
-    private val flatRate: Double = 6.00,
+    private val flatRate: Double = 10.00,
     private val costPerKg: Double = 2.00
 ): ShippingStrategy {
     override fun isAvailable(orderValue: Double): Boolean {
-        if (orderValue > 10.0) {
+        if (orderValue > flatRate) {
             return true
         }
         return false

@@ -11,14 +11,14 @@ import androidx.compose.ui.text.withStyle
 import org.e2fs4.strategy.domain.formatting.toCurrencyString
 import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.domain.strategies.ExpressShippingStrategy
-import org.e2fs4.strategy.domain.strategies.FreeShippingThresholdStrategy
+import org.e2fs4.strategy.domain.strategies.FreeShippingStrategy
 import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
 
 object VKBViewModel {
     private val allShippingStrategies = listOf(
         StandardShippingStrategy(),
-        FreeShippingThresholdStrategy(),
+        FreeShippingStrategy(),
         ExpressShippingStrategy()
     )
     var selectedProduct: Product? by mutableStateOf(null)
