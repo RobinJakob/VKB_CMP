@@ -15,10 +15,6 @@ open class StandardShippingStrategy(
         return flatRate
     }
 
-    override fun getDescription(): String {
-        return "5€ Pauschale bis zu einem Warenwert \nvon 100€, danach 0,00€."
-    }
-
     override fun getETA(): Int {
         return 3
     }

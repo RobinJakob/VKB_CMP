@@ -17,12 +17,6 @@ class ExpressShippingStrategy(
         return flatRate + weightInKg / costPerKg
     }
 
-    override fun getDescription(): String {
-        return "${flatRate.toCurrencyString()} + ${costPerKg.toCurrencyString()} + " +
-                "pro kg Warengewicht für eine schnellere Lieferung, \n" +
-                "möglich ab einem Warenwert von 10,00€."
-    }
-
     override fun getETA(): Int {
         return 2
     }
