@@ -4,6 +4,13 @@ class ExpressShippingStrategy(
     private val flatRate: Double = 6.00,
     private val costPerKg: Double = 2.00
 ): ShippingStrategy {
+    override fun isAvailable(orderValue: Double): Boolean {
+        if (orderValue > 10.0) {
+            return true
+        }
+        return false
+    }
+
     override fun getName(): String {
         return "Expressversand"
     }

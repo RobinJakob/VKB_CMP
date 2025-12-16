@@ -16,6 +16,11 @@ import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
 
 object VKBViewModel {
+    private val allShippingStrategies = listOf(
+        StandardShippingStrategy(),
+        FreeShippingThresholdStrategy(),
+        ExpressShippingStrategy()
+    )
     var selectedProduct: Product? by mutableStateOf(null)
     var selectedShippingStrategy: ShippingStrategy? by mutableStateOf(null)
     val products = listOf(
@@ -26,16 +31,11 @@ object VKBViewModel {
 
     fun getAvailableShippingStrategies(product: Product): List<ShippingStrategy> {
         val availableShippingStrategies = mutableListOf<ShippingStrategy>()
-
-        if (product.price >= 100.0) {
-            availableShippingStrategies.add(FreeShippingThresholdStrategy())
-        } else {
-            availableShippingStrategies.add(StandardShippingStrategy())
+        allShippingStrategies.forEach {
+            if (it.isAvailable(product.price)) {
+                availableShippingStrategies.add(it)
+            }
         }
-        if (product.price >= 10.0) {
-            availableShippingStrategies.add(ExpressShippingStrategy())
-        }
-
         return availableShippingStrategies
     }
 
