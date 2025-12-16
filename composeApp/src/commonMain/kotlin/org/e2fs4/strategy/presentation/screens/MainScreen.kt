@@ -1,5 +1,6 @@
-package org.e2fs4.strategy.presentation
+package org.e2fs4.strategy.presentation.screens
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,7 +26,7 @@ fun MainScreen() {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                androidx.compose.animation.Crossfade(targetState = currentScreen) { screen ->
+                Crossfade(targetState = currentScreen) { screen ->
                     when (screen) {
                         AppScreen.Selection -> {
                             SelectionScreen(

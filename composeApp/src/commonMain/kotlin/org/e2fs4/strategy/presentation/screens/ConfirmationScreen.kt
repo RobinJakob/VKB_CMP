@@ -1,4 +1,4 @@
-package org.e2fs4.strategy.presentation
+package org.e2fs4.strategy.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

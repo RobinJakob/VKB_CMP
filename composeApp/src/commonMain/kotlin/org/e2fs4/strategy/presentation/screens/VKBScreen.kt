@@ -1,4 +1,4 @@
-package org.e2fs4.strategy.presentation
+package org.e2fs4.strategy.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,20 +23,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.e2fs4.strategy.domain.formatting.toCurrencyString
+import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.presentation.components.RadioButtonRow
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
-fun SelectionScreen(
-    onNavigateNext: () -> Unit
+@Preview
+fun VKBScreen(
+    onNavigateNext: () -> Unit,
+    onNavigateBack: () -> Unit
 ) {
-    val products = remember { VKBViewModel.products }
+    val selectedProduct = VKBViewModel.selectedProduct
+        ?: Product("Unbekannt", 0.0, 0.0)
+    val shippingStrategies = VKBViewModel.getAvailableShippingStrategies(selectedProduct)
     var currentSelection by remember {
-        mutableStateOf(VKBViewModel.selectedProduct
-            ?: products.first())
+        mutableStateOf(
+            shippingStrategies.find {
+                it.getName() == VKBViewModel.selectedShippingStrategy?.getName()
+            } ?: shippingStrategies.first()
+        )
     }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -53,24 +59,20 @@ fun SelectionScreen(
         ) {
             item {
                 Text(
-                    text = "Artikelauswahl",
+                    text = "Versandkostenberechnung",
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
             }
 
-            items(products) { product ->
+            items(shippingStrategies) { strategy ->
                 RadioButtonRow(
                     content = {
-                        Text("${product.productName} " +
-                                "(${product.weightInKg
-                                    .toString()
-                                    .replace(".", ",")}kg): " +
-                                product.price.toCurrencyString())
+                        Text(text = VKBViewModel.getShippingCostString(strategy, selectedProduct))
                     },
-                    isSelected = (product == currentSelection),
-                    onSelect = { currentSelection = product }
+                    isSelected = (strategy == currentSelection),
+                    onSelect = { currentSelection = strategy }
                 )
             }
 
@@ -78,12 +80,24 @@ fun SelectionScreen(
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
                     onClick = {
-                        VKBViewModel.selectedProduct = currentSelection
+                        VKBViewModel.selectedShippingStrategy = currentSelection
                         onNavigateNext()
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Auswahl bestätigen")
+                }
+            }
+
+            item {
+                Button(
+                    onClick = {
+                        VKBViewModel.selectedShippingStrategy = null
+                        onNavigateBack()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Zurück")
                 }
             }
         }
