@@ -28,6 +28,7 @@ import org.e2fs4.strategy.presentation.components.RadioButtonRow
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+// Der erste Screen in der Reihenfolge
 @Preview
 @Composable
 fun SelectionScreen(

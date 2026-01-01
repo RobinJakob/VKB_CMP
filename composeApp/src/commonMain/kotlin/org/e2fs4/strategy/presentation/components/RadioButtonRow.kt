@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
+// Eine Custom UI-Komponente, welche auf dem Material3 RadioButton aufbaut.
 @Composable
 fun RadioButtonRow(
     content: @Composable () -> Unit,

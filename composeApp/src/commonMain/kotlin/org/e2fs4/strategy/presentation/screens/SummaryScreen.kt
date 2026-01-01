@@ -29,6 +29,7 @@ import org.e2fs4.strategy.domain.models.Product
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 
+// Der dritte Screen in der Reihenfolge
 @Composable
 fun SummaryScreen(
     onNavigateNext: () -> Unit,

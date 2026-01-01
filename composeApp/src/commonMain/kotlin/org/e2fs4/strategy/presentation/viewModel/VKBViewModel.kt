@@ -15,6 +15,9 @@ import org.e2fs4.strategy.domain.strategies.FreeShippingStrategy
 import org.e2fs4.strategy.domain.strategies.ShippingStrategy
 import org.e2fs4.strategy.domain.strategies.StandardShippingStrategy
 
+// Die Logik-Klasse, welche von den Screens aufgerufen wird, um die eigentliche Programmlogik auszuführen.
+// Bei einer größeren Anwendung würde jeder Screen seine eigene ViewModel-Klasse bekommen
+// und es würde Dependency-Injection (z.B. Koin) statt Singleton eingesetzt werden, um ihre Laufzeit zu regulieren.
 object VKBViewModel {
     private val allShippingStrategies = listOf(
         StandardShippingStrategy(),

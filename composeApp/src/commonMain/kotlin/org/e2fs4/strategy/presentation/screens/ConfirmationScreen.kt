@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.e2fs4.strategy.presentation.viewModel.VKBViewModel
 
+// Der vierte und letzte Screen in der Reihenfolge
 @Composable
 fun ConfirmationScreen(
     onNavigateNext: () -> Unit

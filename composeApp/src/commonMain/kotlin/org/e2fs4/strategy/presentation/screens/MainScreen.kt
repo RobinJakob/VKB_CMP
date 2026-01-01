@@ -15,6 +15,9 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.e2fs4.strategy.presentation.navigation.AppScreen
 
+// Kein eigenständiger Screen, sondern eine Form von Navigation-Controller,
+// der angibt, welcher eigenständige Screen gerade tatsächlich angezeigt werden soll.
+// Sozusagen der "Screen 0".
 @Composable
 @Preview
 fun MainScreen() {
